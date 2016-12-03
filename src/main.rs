@@ -2,16 +2,18 @@
 extern crate clap;
 extern crate ears;
 extern crate rand;
+extern crate sha1;
 extern crate tempfile;
-extern crate hex;
 
 use clap::{App, Arg};
 use ears::{AudioController, Recorder, Sound};
 use tempfile::NamedTempFileOptions;
 
+use std::io::{self, BufReader};
+use std::error::Error;
 use std::fs::File;
-use std::io::BufReader;
 use std::io::prelude::*;
+use std::path::Path;
 
 fn main() {
 
@@ -66,9 +68,29 @@ fn main() {
     let trimmed_str: &str = nameStr.as_str().trim_matches(chars_to_trim);
     recorder.save_to_file(trimmed_str);
 
-    let mut file = BufReader::new(File::open(nameStr.as_str()).unwrap());
-    for &byte in file. {
-        write!(&mut s, "{:X} ", byte).unwrap();
+    let path = Path::new("hello.txt");
+    let display = path.display();
+
+    // Open the path in read-only mode, returns `io::Result<File>`
+    let mut file = match File::open(&path) {
+        // The `description` method of `io::Error` returns a string that
+        // describes the error
+        Err(why) => panic!("couldn't open {}: {}", display,
+                                                   why.description()),
+        Ok(file) => file,
+    };
+    let mut bytes: Vec<u8>;
+    match file.read(&mut bytes) {
+        Err(why) => panic!("couldn't read {}: {}", display,
+                                                   why.description()),
+        Ok(_) => print!("{}", display),
     }
-    println!("{}", s);
+
+    let mut m = sha1::Sha1::new();
+    for i in 0..bytes.len() {
+        let temp: [u8] = [bytes.get(i).unwrap()];
+        m.update(temp);
+    }
+
+    println!("{}", m.digest().to_string());
 }

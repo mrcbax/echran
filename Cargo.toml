@@ -5,5 +5,5 @@ authors = ["Chad Baxter <cbaxter@mail.umw.edu>"]
 
 [dependencies]
 clap = "2.19.1"
+ears = "0.3.5"
 rand = "*"
-sphinxad-sys = "0.1.2"

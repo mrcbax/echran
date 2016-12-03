@@ -7,3 +7,6 @@ authors = ["Chad Baxter <cbaxter@mail.umw.edu>"]
 clap = "2.19.1"
 ears = "0.3.5"
 rand = "*"
+ssdeep = "0.1.0"
+tempfile = "2.1.4"
+#apt-get install libopenal-dev libsndfile1-dev

@@ -4,3 +4,6 @@ version = "0.1.0"
 authors = ["Chad Baxter <cbaxter@mail.umw.edu>"]
 
 [dependencies]
+clap = "2.19.1"
+rand = "*"
+sphinxad-sys = "0.1.2"

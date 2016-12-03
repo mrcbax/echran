@@ -62,7 +62,7 @@ fn main() {
     recorder.stop();
     // Then store the recorded data in a file
     recorder.save_to_file(name.to_os_string().into_string().unwrap().as_str());
-    let h = ssdeep::hash_from_file(name).unwrap();
+    //let h = ssdeep::hash_from_file(name).unwrap();
 
-    println!("ssdeep: {}", h);
+    //println!("ssdeep: {}", h);
 }

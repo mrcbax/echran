@@ -12,10 +12,11 @@ use ears::{AudioController, Recorder, Sound};
 //use rand::{Rng, SeedableRng, StdRng};
 use tempfile::NamedTempFileOptions;
 
+use std::error::Error;
 use std::io;
 use std::io::prelude::*;
-use std::io::Error;
 use std::fs::File;
+use std::path::Path;
 
 fn main() {
 
@@ -39,7 +40,7 @@ fn main() {
     )
     .get_matches();
 
-    //create tempfile
+//create tempfile
     let named_temp_file = NamedTempFileOptions::new()
         .prefix("echran")
         .suffix(".temp")
@@ -49,6 +50,7 @@ fn main() {
     let name = named_temp_file.path()
         .file_name().unwrap();
     let nameStr = name.to_os_string().into_string().unwrap();
+
     // Create a Sound with the path of the sound file.
     let mut snd = Sound::new(m.value_of("tone_file").unwrap()).unwrap();
     // Play it
@@ -66,15 +68,24 @@ fn main() {
     recorder.stop();
     // Then store the recorded data in a file
     recorder.save_to_file(nameStr.as_str());
-
-
-    let mut f = try!(File::open(nameStr));
-    let mut buffer = Vec::new();
-    // read the whole file
-    try!(f.read_to_end(&mut buffer)).unwrap();
-    // read into a String, so that you don't need to do the conversion.
-    let mut buffer = String::new();
-    f.read_to_string(&mut buffer);
+    let es: String = ".wav".to_owned();
+    let path = Path::new(es.push(nameStr.as_str()));
+    let display = path.display();
+    // Open the path in read-only mode, returns `io::Result<File>`
+    let mut file = match File::open(&path) {
+        // The `description` method of `io::Error` returns a string that
+        // describes the error
+        Err(why) => panic!("couldn't open {}: {}", display,
+                                                   why.description()),
+        Ok(file) => file,
+    };
+    // Read the file contents into a string, returns `io::Result<usize>`
+    let mut s = String::new();
+    match file.read_to_string(&mut s) {
+        Err(why) => panic!("couldn't read {}: {}", display,
+                                                   why.description()),
+        Ok(_) => print!("{} contains:\n{}", display, s),
+    }
 
     let mut hasher = Md5::new();
     hasher.input_str(&s);

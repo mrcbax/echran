@@ -6,7 +6,7 @@ authors = ["Chad Baxter <cbaxter@mail.umw.edu>"]
 [dependencies]
 clap = "2.19.1"
 ears = "0.3.5"
+hex = "0.2.0"
 rand = "*"
-rust-crypto = "^0.2"
 tempfile = "2.1.4"
 #apt-get install libopenal-dev libsndfile1-dev

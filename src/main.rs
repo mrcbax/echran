@@ -3,19 +3,15 @@ extern crate clap;
 extern crate ears;
 extern crate rand;
 extern crate tempfile;
-extern crate crypto;
+extern crate hex;
 
 use clap::{App, Arg};
-use crypto::md5::Md5;
-use crypto::digest::Digest;
 use ears::{AudioController, Recorder, Sound};
-//use rand::{Rng, SeedableRng, StdRng};
 use tempfile::NamedTempFileOptions;
 
-use std::error::Error;
-use std::io::prelude::*;
 use std::fs::File;
-use std::path::Path;
+use std::io::BufReader;
+use std::io::prelude::*;
 
 fn main() {
 
@@ -66,29 +62,13 @@ fn main() {
     // Stop the recorder
     recorder.stop();
     // Then store the recorded data in a file
-    recorder.save_to_file("echran.temp");
+    let chars_to_trim: &[char] = &['.', 'w', 'a', 'v'];
+    let trimmed_str: &str = nameStr.as_str().trim_matches(chars_to_trim);
+    recorder.save_to_file(trimmed_str);
 
-    let path = Path::new("echran.temp.wav");
-    let display = path.display();
-    // Open the path in read-only mode, returns `io::Result<File>`
-    let mut file = match File::open(&path) {
-        // The `description` method of `io::Error` returns a string that
-        // describes the error
-        Err(why) => panic!("couldn't open {}: {}", display,
-                                                   why.description()),
-        Ok(file) => file,
-    };
-    // Read the file contents into a string, returns `io::Result<usize>`
-    let mut s = String::new();
-    match file.read_to_string(&mut s) {
-        Err(why) => panic!("couldn't read {}: {}", display,
-                                                   why.description()),
-        Ok(_) => print!("{} contains:\n{}", display, s),
+    let mut file = BufReader::new(File::open(nameStr.as_str()).unwrap());
+    for &byte in file. {
+        write!(&mut s, "{:X} ", byte).unwrap();
     }
-
-    let mut hasher = Md5::new();
-    hasher.input_str(&s);
-    let hash = hasher.result_str();
-
-    println!("hash: {}", hash);
+    println!("{}", s);
 }

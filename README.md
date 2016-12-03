@@ -36,4 +36,4 @@ A Proof of Concept truly random number generator.
     <randomness>    Length of recording in milliseconds.
     <tone_file>     The path to an ogg tone file to play.
 
-    This project is licensed under the [Software Distribution Disclaimer License](https://www.github.com/LogoiLab/SDIS2L)
+This project is licensed under the [Software Distribution Disclaimer License](https://www.github.com/LogoiLab/SDIS2L)

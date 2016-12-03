@@ -1,6 +1,7 @@
 The Echo Randomizer
 ===
 A proof of concept truly random number generator.
+---
 
 The Echo Randomizer utilizes a speaker and microphone to read an "echo" of a room. Like sonar the microphone picks up a tone played by the speaker that has been changed by the environment it has echoed through. Effectively using the room around you as a random number generation seed.
 

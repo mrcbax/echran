@@ -3,16 +3,19 @@ extern crate clap;
 extern crate ears;
 extern crate rand;
 extern crate tempfile;
-extern crate ssdeep;
+extern crate crypto;
 
 use clap::{App, Arg};
+use crypto::md5::Md5;
+use crypto::digest::Digest;
 use ears::{AudioController, Recorder, Sound};
 //use rand::{Rng, SeedableRng, StdRng};
 use tempfile::NamedTempFileOptions;
 
-//use std::fs::File;
-//use std::rc::Rc;
-//use std::cell::RefCell;
+use std::io;
+use std::io::prelude::*;
+use std::io::Error;
+use std::fs::File;
 
 fn main() {
 
@@ -45,6 +48,7 @@ fn main() {
     //get tempfile path
     let name = named_temp_file.path()
         .file_name().unwrap();
+    let nameStr = name.to_os_string().into_string().unwrap();
     // Create a Sound with the path of the sound file.
     let mut snd = Sound::new(m.value_of("tone_file").unwrap()).unwrap();
     // Play it
@@ -61,8 +65,20 @@ fn main() {
     // Stop the recorder
     recorder.stop();
     // Then store the recorded data in a file
-    recorder.save_to_file(name.to_os_string().into_string().unwrap().as_str());
-    //let h = ssdeep::hash_from_file(name).unwrap();
+    recorder.save_to_file(nameStr.as_str());
 
-    //println!("ssdeep: {}", h);
+
+    let mut f = try!(File::open(nameStr));
+    let mut buffer = Vec::new();
+    // read the whole file
+    try!(f.read_to_end(&mut buffer)).unwrap();
+    // read into a String, so that you don't need to do the conversion.
+    let mut buffer = String::new();
+    f.read_to_string(&mut buffer);
+
+    let mut hasher = Md5::new();
+    hasher.input_str(&s);
+    let hash = hasher.result_str();
+
+    println!("hash: {}", hash);
 }

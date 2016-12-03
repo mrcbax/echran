@@ -2,11 +2,15 @@
 name = "echran"
 version = "0.1.0"
 authors = ["Chad Baxter <cbaxter@mail.umw.edu>"]
+description = "A proof of concept truly random number generator."
+repository = "https://www.github.com/LogoiLab/echran"
+readme = "./README.md"
+keywords = ["truly", "random", "number", "generator"]
+license-file = "./LICENSE.md"
 
 [dependencies]
 clap = "2.19.1"
 ears = "0.3.5"
 rand = "*"
-sha1 = "*"
-tempfile = "2.1.4"
+#tempfile = "2.1.4"
 #apt-get install libopenal-dev libsndfile1-dev

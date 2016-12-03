@@ -13,7 +13,6 @@ use ears::{AudioController, Recorder, Sound};
 use tempfile::NamedTempFileOptions;
 
 use std::error::Error;
-use std::io;
 use std::io::prelude::*;
 use std::fs::File;
 use std::path::Path;
@@ -43,7 +42,7 @@ fn main() {
 //create tempfile
     let named_temp_file = NamedTempFileOptions::new()
         .prefix("echran")
-        .suffix(".temp")
+        .suffix(".wav")
         .create()
         .unwrap();
     //get tempfile path
@@ -67,9 +66,9 @@ fn main() {
     // Stop the recorder
     recorder.stop();
     // Then store the recorded data in a file
-    recorder.save_to_file(nameStr.as_str());
-    let es: String = ".wav".to_owned();
-    let path = Path::new(es.push(nameStr.as_str()));
+    recorder.save_to_file("echran.temp");
+
+    let path = Path::new("echran.temp.wav");
     let display = path.display();
     // Open the path in read-only mode, returns `io::Result<File>`
     let mut file = match File::open(&path) {

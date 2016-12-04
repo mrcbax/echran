@@ -2,8 +2,7 @@
 extern crate clap;
 extern crate ears;
 extern crate rand;
-extern crate sha1;
-extern crate tempfile;
+//extern crate tempfile;
 
 use clap::{App, Arg};
 use ears::{AudioController, Recorder, Sound};
@@ -63,7 +62,7 @@ fn main() {
 
     // Create a new Recorder using the RecordContext
     let mut recorder = ears::Recorder::new(ctxt);
-    println!("Recording for {} seconds", m.value_of("randomness").unwrap());
+    println!("Recording for {} milliseconds", m.value_of("randomness").unwrap());
     recorder.start();
     let mils = m.value_of("randomness").unwrap().parse::<u64>();
     sleep(Duration::from_millis(mils.unwrap()));

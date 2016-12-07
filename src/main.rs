@@ -36,13 +36,13 @@ fn main() {
     .get_matches();
 
     //create tempfile
-    let named_temp_file = NamedTempFileOptions::new()
+    /*let named_temp_file = NamedTempFileOptions::new()
     .prefix("echran")
     .suffix(".wav")
     .create()
     .unwrap();
     //get tempfile path
-    /*let name = named_temp_file.path()
+    let name = named_temp_file.path()
     .file_name().unwrap();
     let name_str = name.to_os_string().into_string().unwrap();
     */
@@ -83,6 +83,9 @@ fn main() {
     // Returns amount of bytes read and append the result to the buffer
     let result = file.read_to_end(&mut contents).unwrap();
     println!("Read {} bytes", result);
+
+    let filestr = String::from_utf8(contents).unwrap();
+    println!("{}", filestr);
 
 
 

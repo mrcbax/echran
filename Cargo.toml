@@ -13,4 +13,4 @@ clap = "2.19.1"
 ears = "0.3.5"
 rand = "*"
 #tempfile = "2.1.4"
-#apt-get install libopenal-dev libsndfile1-dev
+#apt-get install libopenal-dev libsndfile1-dev md5sum

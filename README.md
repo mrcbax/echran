@@ -17,7 +17,7 @@ Grab the repo:
 > git clone https://github.com/LogoiLab/echran.git
 
 Update your system:
-> sudo apt-get install libopenal-dev libsndfile1-dev md5sum
+> sudo apt-get install libopenal-dev libsndfile1-dev
 
 Build:
 > cd echran && cargo update && cargo build --release

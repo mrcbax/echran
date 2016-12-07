@@ -8,9 +8,10 @@ use clap::{App, Arg};
 use ears::{AudioController, Recorder, Sound};
 //use tempfile::NamedTempFileOptions;
 
-use std::process::Command;
 use std::thread::sleep;
 use std::time::Duration;
+use std::fs::File;
+use std::io::Read;
 
 fn main() {
 
@@ -34,17 +35,17 @@ fn main() {
     )
     .get_matches();
 
-    /*//create tempfile
+    //create tempfile
     let named_temp_file = NamedTempFileOptions::new()
     .prefix("echran")
     .suffix(".wav")
     .create()
     .unwrap();
     //get tempfile path
-    let name = named_temp_file.path()
+    /*let name = named_temp_file.path()
     .file_name().unwrap();
-    let nameStr = name.to_os_string().into_string().unwrap();*/
-
+    let name_str = name.to_os_string().into_string().unwrap();
+    */
     // Create a Sound with the path of the sound file.
     let mut snd = Sound::new(m.value_of("tone_file").unwrap()).unwrap();
     // Play it
@@ -67,22 +68,22 @@ fn main() {
     let mils = m.value_of("randomness").unwrap().parse::<u64>();
     sleep(Duration::from_millis(mils.unwrap()));
     recorder.stop();
-    match recorder.save_to_file("echran") {
+    match recorder.save_to_file("echran.wav"/*name_str.as_str()*/) {
         true => println!("Save okay!"),
         false => println!("Cannot save ...")
     }
 
-    // Then store the recorded data in a file
+    //Read the temp file
     //let chars_to_trim: &[char] = &['.', 'w', 'a', 'v'];
-    //let trimmed_str: &str = nameStr.as_str().trim_matches(chars_to_trim);
-    let output = Command::new("sh")
-    .arg("-c")
-    .arg("md5sum echran.wav")
-    .output()
-    .expect("failed to execute process");
+    //let trimmed_str: &str = name_str.as_str().trim_matches(chars_to_trim);
+    //println!("Tempfile at: {}", name_str.as_str());
+    let mut file = File::open("echran"/*trimmed_str*/).unwrap();
 
-    let md5 = output.stdout;
-    for i in 0..md5.len() {
-        println!("RandNum: {}", md5[i]);
-    }
+    let mut contents: Vec<u8> = Vec::new();
+    // Returns amount of bytes read and append the result to the buffer
+    let result = file.read_to_end(&mut contents).unwrap();
+    println!("Read {} bytes", result);
+
+
+
 }

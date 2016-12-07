@@ -1,6 +1,6 @@
 [package]
 name = "echran"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Chad Baxter <cbaxter@mail.umw.edu>"]
 description = "A proof of concept truly random number generator."
 repository = "https://www.github.com/LogoiLab/echran"
@@ -13,4 +13,4 @@ clap = "2.19.1"
 ears = "0.3.5"
 rand = "*"
 #tempfile = "2.1.4"
-#apt-get install libopenal-dev libsndfile1-dev md5sum
+#apt-get install libopenal-dev libsndfile1-dev

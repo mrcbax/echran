@@ -39,7 +39,7 @@ A Proof of Concept truly random number generator.
 
 > USAGE:
 
->    echran <randomness> <tone_file>
+>    echran **randomness** **tone_file**
 
 > FLAGS:
 

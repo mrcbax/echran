@@ -9,4 +9,5 @@ rust:
 matrix:
   allow_failures:
     - rust: nightly
+    - rust: beta
 cache: cargo    

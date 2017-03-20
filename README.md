@@ -1,4 +1,4 @@
-The Echo Randomizer
+The Echo Randomizer [![Build Status](https://travis-ci.org/LogoiLab/echran.svg?branch=master)](https://travis-ci.org/LogoiLab/echran)
 ===
 A proof of concept truly random number generator.
 ---

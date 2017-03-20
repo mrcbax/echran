@@ -1,5 +1,7 @@
-
 language: rust
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libopenal-dev libsndfile1-dev
 rust:
   - stable
   - beta

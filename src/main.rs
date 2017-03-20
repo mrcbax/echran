@@ -68,16 +68,11 @@ fn main() {
     let mils = m.value_of("randomness").unwrap().parse::<u64>();
     sleep(Duration::from_millis(mils.unwrap()));
     recorder.stop();
-    match recorder.save_to_file("echran.wav"/*name_str.as_str()*/) {
+    match recorder.save_to_file("echran.wav") {
         true => println!("Save okay!"),
         false => println!("Cannot save ...")
     }
-
-    //Read the temp file
-    //let chars_to_trim: &[char] = &['.', 'w', 'a', 'v'];
-    //let trimmed_str: &str = name_str.as_str().trim_matches(chars_to_trim);
-    //println!("Tempfile at: {}", name_str.as_str());
-    let mut file = File::open("echran"/*trimmed_str*/).unwrap();
+    let mut file = File::open("echran").unwrap();
 
     let mut contents: Vec<u8> = Vec::new();
     // Returns amount of bytes read and append the result to the buffer

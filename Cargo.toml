@@ -10,7 +10,7 @@ license-file = "./LICENSE.md"
 
 [dependencies]
 clap = "2.19.1"
-ears = "0.3.5"
+ears = {git = "https://github.com/jhasse/ears"}
 rand = "*"
 #tempfile = "2.1.4"
 #apt-get install libopenal-dev libsndfile1-dev
